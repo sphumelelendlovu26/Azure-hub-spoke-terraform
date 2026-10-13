@@ -18,5 +18,12 @@ resource "azurerm_subnet" "spoke_subnet" {
   address_prefixes     = each.value.subnet_cidr
   virtual_network_name = azurerm_virtual_network.spoke[each.key].name
   resource_group_name  = azurerm_resource_group.az700-terraform-rg.name
+}
 
+resource "azurerm_subnet" "hub_subnet" {
+  for_each             = var.hub_subnets
+  name                 = each.value.subnet_name
+  address_prefixes     = [each.value.subnet_cidr]
+  resource_group_name  = azurerm_resource_group.az700-terraform-rg.name
+  virtual_network_name = azurerm_virtual_network.hub_vnet.name
 }

@@ -23,3 +23,19 @@ variable "hub_subnets" {
     subnet_description = string
   }))
 }
+
+variable "spoke_vms" {
+  type = map(object({
+    vm_name    = string
+    private_ip = string
+    subnet     = string
+    subnet_key = string
+    size       = string
+  }))
+}
+
+variable "hub_to_spoke_peering" {
+  type = map(object({
+    peering_name = string
+  }))
+}
